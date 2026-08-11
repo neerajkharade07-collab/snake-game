@@ -1,0 +1,140 @@
+
+:root{
+  --bg:#050a0e;--border:#0d2535;--cyan:#00f5ff;--green:#39ff14;
+  --green-dim:#1a8a00;--gold:#ffd700;--red:#ff2d55;--purple:#bf5fff;
+  --text:#c8e6f0;--text-dim:#4a6070;
+  --font-main:'Orbitron',sans-serif;--font-mono:'Share Tech Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--font-main);
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;overflow-x:hidden;
+}
+.bg-grid{
+  position:fixed;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,245,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,245,255,.03) 1px,transparent 1px);
+  background-size:40px 40px;z-index:0;
+}
+.app-wrapper{
+  position:relative;z-index:1;display:flex;flex-direction:column;
+  align-items:center;gap:14px;padding:20px 16px;width:100%;max-width:540px;
+}
+.game-header{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:10px 18px;background:rgba(10,21,32,.85);border:1px solid var(--border);
+  border-radius:10px;backdrop-filter:blur(6px);
+  box-shadow:0 0 20px rgba(0,245,255,.07);
+}
+.logo{font-size:1.5rem;font-weight:900;letter-spacing:4px;line-height:1}
+.logo-s{color:var(--cyan);text-shadow:0 0 12px var(--cyan)}
+.logo-rest{color:var(--text);opacity:.8}
+.score-panel{display:flex;gap:18px}
+.score-box{display:flex;flex-direction:column;align-items:center;gap:2px}
+.score-label{font-family:var(--font-mono);font-size:.55rem;letter-spacing:2px;color:var(--text-dim)}
+.score-value{
+  font-family:var(--font-mono);font-size:1.15rem;color:var(--cyan);
+  text-shadow:0 0 8px var(--cyan);min-width:40px;text-align:center;
+}
+.score-value.hi{color:var(--gold);text-shadow:0 0 8px var(--gold)}
+.canvas-container{
+  position:relative;width:480px;height:480px;
+  border:1px solid rgba(0,245,255,.18);border-radius:6px;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(0,245,255,.05),0 0 30px rgba(0,245,255,.1),inset 0 0 40px rgba(0,0,0,.5);
+}
+#gameCanvas{display:block;width:100%;height:100%;background:#050d14}
+.overlay{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(5,10,14,.88);backdrop-filter:blur(4px);transition:opacity .3s;
+}
+.overlay.hidden{display:none}
+.ov-content{
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  animation:ovIn .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes ovIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.ov-icon{font-size:3.2rem;line-height:1;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.ov-title{
+  font-size:2.2rem;font-weight:900;letter-spacing:6px;color:var(--cyan);
+  text-shadow:0 0 20px var(--cyan),0 0 40px rgba(0,245,255,.4);
+}
+.ov-sub{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:5px;
+  color:var(--purple);text-shadow:0 0 8px var(--purple);margin-top:-8px;
+}
+.key-hints{display:flex;gap:18px;margin:4px 0}
+.key-group{display:flex;align-items:center;gap:4px}
+.key{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border:1px solid rgba(0,245,255,.3);border-radius:4px;
+  font-family:var(--font-mono);font-size:.7rem;color:var(--cyan);
+  background:rgba(0,245,255,.06);box-shadow:0 0 6px rgba(0,245,255,.15);
+}
+.key-lbl{font-family:var(--font-mono);font-size:.6rem;color:var(--text-dim);margin-left:4px;letter-spacing:1px}
+.final-scores{
+  display:flex;flex-direction:column;gap:8px;width:200px;
+  padding:14px 20px;background:rgba(0,0,0,.4);
+  border:1px solid var(--border);border-radius:6px;
+}
+.fs-row{display:flex;justify-content:space-between;align-items:center}
+.fs-lbl{font-family:var(--font-mono);font-size:.65rem;letter-spacing:2px;color:var(--text-dim)}
+.fs-val{font-family:var(--font-mono);font-size:1.4rem;font-weight:700}
+.fs-val.cyan{color:var(--cyan);text-shadow:0 0 10px var(--cyan)}
+.fs-val.gold{color:var(--gold);text-shadow:0 0 10px var(--gold)}
+.btn{
+  font-family:var(--font-main);font-size:.7rem;font-weight:700;
+  letter-spacing:3px;padding:12px 32px;border:none;border-radius:4px;
+  cursor:pointer;transition:transform .12s,box-shadow .12s,filter .12s;
+  text-transform:uppercase;
+}
+.btn:active{transform:scale(.96)}
+.btn-p{
+  background:var(--cyan);color:#030a0e;
+  box-shadow:0 0 20px rgba(0,245,255,.5),0 0 40px rgba(0,245,255,.2);
+}
+.btn-p:hover{
+  filter:brightness(1.15);
+  box-shadow:0 0 30px rgba(0,245,255,.8),0 0 60px rgba(0,245,255,.3);
+  transform:translateY(-2px);
+}
+.btn-s{background:transparent;color:var(--text);border:1px solid rgba(200,230,240,.2)}
+.btn-s:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px rgba(0,245,255,.25);transform:translateY(-2px)}
+.mobile-controls{display:none;flex-direction:column;align-items:center;gap:4px;margin-top:6px}
+.mob-row{display:flex;gap:4px}
+.d-btn{
+  width:52px;height:52px;background:rgba(0,245,255,.05);
+  border:1px solid rgba(0,245,255,.18);border-radius:8px;color:var(--cyan);
+  font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .15s,box-shadow .15s,transform .1s;
+  -webkit-tap-highlight-color:transparent;
+}
+.d-btn:active,.d-btn.pressed{background:rgba(0,245,255,.18);box-shadow:0 0 14px rgba(0,245,255,.4);transform:scale(.93)}
+.d-center{background:rgba(191,95,255,.06);border-color:rgba(191,95,255,.25);color:var(--purple)}
+.game-footer{
+  font-family:var(--font-mono);font-size:.58rem;letter-spacing:2px;
+  color:var(--text-dim);text-align:center;opacity:.6;
+}
+.new-best-badge{
+  position:absolute;top:12px;right:12px;background:var(--gold);color:#000;
+  font-family:var(--font-main);font-size:.55rem;font-weight:700;letter-spacing:2px;
+  padding:4px 10px;border-radius:20px;
+  animation:badgePop .4s cubic-bezier(.34,1.56,.64,1) both;z-index:10;
+}
+@keyframes badgePop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.score-flash{animation:sFlash .3s ease}
+@keyframes sFlash{0%{color:var(--green);text-shadow:0 0 20px var(--green)}100%{color:var(--cyan);text-shadow:0 0 8px var(--cyan)}}
+@media(max-width:520px){
+  .canvas-container{width:320px;height:320px}
+  .app-wrapper{max-width:360px;gap:10px;padding:14px 10px}
+  .game-header{padding:8px 12px}
+  .logo{font-size:1.1rem}
+  .score-value{font-size:.9rem}
+  .ov-title{font-size:1.6rem}
+  .mobile-controls{display:flex}
+  .game-footer{display:none}
+}
+@media(max-width:360px){.canvas-container{width:280px;height:280px}}
